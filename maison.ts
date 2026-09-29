@@ -1,6 +1,6 @@
 export class Porte {
     isOpen: Boolean;
-    // isCleParticulier: boolean;
+    isCleParticulier: boolean;
     // isUtilisé :boolean;
 
     constructor(statut: boolean, clePart: boolean, utilisée: boolean) {
