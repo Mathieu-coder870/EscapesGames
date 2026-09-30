@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Gamer, Porte } from "./maison";
+import { Gamer, Porte, Inventory } from "./maison";
 
 
 describe("Porte fermée", () => {
@@ -40,10 +40,13 @@ describe("Porte avec cle", () => {
 
 describe("Inventory", () => {
     it("Quand une cle est utilisée, elle est retiré de l'inventaire", () => {
-        const porte4 = new Porte(true, true, true, "blue");
 
+        const porte = new Porte(false, true, false, "blue");
+        const inventaire = new Inventory(["blue", "torch"]);
+        porte.openTheDoor(inventaire, "blue");
 
-        porte4.isOpenedwithUniqueKey();
+        expect(inventaire.objects.length).toBe(1);
+        expect(inventaire.objects).toStrictEqual(["torch"]);
 
     })
 });

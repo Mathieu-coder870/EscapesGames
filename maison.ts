@@ -1,6 +1,6 @@
 export class Porte {
     isOpen: boolean;
-    private isCleParticulier: boolean;
+    isCleParticulier: boolean;
     isUtilisé: boolean;
     color: string;
 
@@ -48,6 +48,15 @@ export class Porte {
         return;
     }
 
+
+    openTheDoor(sac: Inventory, keydoor: string) {
+        this.isOpen = true;
+        this.isUtilisé = true;
+        sac.remove(keydoor);
+
+
+    }
+
 }
 
 export class Gamer {
@@ -59,6 +68,7 @@ export class Gamer {
         this.key = colorKey;
     }
 
+
 }
 
 export class Key {
@@ -68,3 +78,20 @@ export class Key {
         this.nameKey = nomOfcle;
     }
 }
+
+export class Inventory {
+    objects: string[];
+    constructor(objects: string[] = []) {
+        this.objects = objects;
+    }
+
+    getInventory() {
+        return this.objects;
+    }
+
+    remove(object: string) {
+        this.objects = this.objects.filter(item => item != object);
+    }
+
+}
+
