@@ -62,12 +62,18 @@ export class Porte {
 export class Gamer {
     name: string;
     key: string;
+    inventory: Inventory;
 
-    constructor(nom: string, colorKey: string) {
+
+    constructor(nom: string, colorKey: string, inventaire: Inventory) {
         this.name = nom;
         this.key = colorKey;
+        this.inventory = inventaire;
     }
 
+    addNewElt(object: string) {
+        this.inventory.addNewElt(object);
+    }
 
 }
 
@@ -92,6 +98,28 @@ export class Inventory {
     remove(object: string) {
         this.objects = this.objects.filter(item => item != object);
     }
+
+    addNewElt(object: string) {
+        this.objects.push(object);
+    }
+
+}
+
+export class Room {
+    name: string;
+    objects: string[];
+
+    constructor(nomSalle: string, objects: string[]) {
+        this.name = nomSalle;
+        this.objects = objects;
+    }
+
+    removeElt(objetRetiré: string) {
+
+        // if ()
+        this.objects = this.objects.filter(item => item != objetRetiré);
+    }
+
 
 }
 

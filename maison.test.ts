@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { Gamer, Porte, Inventory } from "./maison";
+import { Gamer, Porte, Inventory, Room } from "./maison";
+import { ExpressionType } from "@angular/compiler";
 
 
 describe("Porte fermée", () => {
@@ -26,8 +27,8 @@ describe("porte ouverte", () => {
 
 describe("Porte avec cle", () => {
     it("Le joueur peut ouvrir la porte s'il possede la cle correcpondante", () => {
-
-        const gamer1 = new Gamer('Toto', "blue");
+        const inventaire = new Inventory([]);
+        const gamer1 = new Gamer('Toto', "blue", inventaire);
 
         const porte3 = new Porte(false, true, true, "blue");
         porte3.checkMatchKey(porte3.color, gamer1.key);
@@ -51,3 +52,30 @@ describe("Inventory", () => {
     })
 });
 
+describe("ramasser un objet dans une salle", () => {
+    it("Quand un joueur ramasse un objet, alors rajout à son inventaire et retirer de la salle", () => {
+         
+        const inventaire = new Inventory(["Torch"]);
+        const gamer2 = new Gamer("John","red",inventaire);
+        const salle = new Room("Red Room", ["Redtable"]);
+        
+        salle.removeElt("Redtable");
+        gamer2.inventory.addNewElt("Redtable");
+       
+        expect(inventaire.objects.length).toBe(2);
+        expect(salle.objects).toStrictEqual([]);
+
+    })
+});
+
+
+// describe("evolution comportement ramassage", ()=> {
+//    it("Un objet ramassé une fois ne peut etre ramasser deux fois", () => {
+//      const salle = new Room("Red Room", ["RedChair"]);
+//      const inventaire = new Inventory(["Torch"]);
+        
+//     expect( salle.removeElt("Redtable")).;
+//      expect( inventaire.addNewElt("Redtable"));
+
+//    })
+// });
