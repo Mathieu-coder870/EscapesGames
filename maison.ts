@@ -70,10 +70,20 @@ export class Gamer {
         this.key = colorKey;
         this.inventory = inventaire;
     }
-
-    addNewElt(object: string) {
-        this.inventory.addNewElt(object);
+    // ancienne version debut
+    // addNewElt(object: string) {
+    //     this.inventory.addNewElt(object);
+    // }
+    // fin ancienne version
+    addNewElt(elt: string) {
+        this.inventory.addElt(elt);
     }
+
+    // essai
+    removeElt(sac: Inventory, elt: string) {
+        sac.remove(elt);
+    }
+    // essai
 
 }
 
@@ -99,11 +109,25 @@ export class Inventory {
         this.objects = this.objects.filter(item => item != object);
     }
 
-    addNewElt(object: string) {
+    // essai  en attente
+    addElt(object: string) {
         this.objects.push(object);
     }
+    //fin essai
 
+    addNewElt(object: string): boolean {
+        const objetaRanger = this.objects.find(objetaRanger => objetaRanger === object);
+        if (objetaRanger) {
+            return false;
+        }
+        else {
+            this.objects.push(object);
+            return true;
+        }
+    }
 }
+
+
 
 export class Room {
     name: string;
@@ -114,10 +138,17 @@ export class Room {
         this.objects = objects;
     }
 
-    removeElt(objetRetiré: string) {
+    removeElt(objetRetire: string): boolean {
 
-        // if ()
-        this.objects = this.objects.filter(item => item != objetRetiré);
+        const objetaRetire = this.objects.find(objetaRetire => objetRetire === objetaRetire
+        );
+
+        if (objetaRetire) {
+            this.objects = this.objects.filter(item => item != objetaRetire);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

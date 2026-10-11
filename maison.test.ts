@@ -54,28 +54,32 @@ describe("Inventory", () => {
 
 describe("ramasser un objet dans une salle", () => {
     it("Quand un joueur ramasse un objet, alors rajout à son inventaire et retirer de la salle", () => {
-         
+
         const inventaire = new Inventory(["Torch"]);
-        const gamer2 = new Gamer("John","red",inventaire);
+        const gamer2 = new Gamer("John", "red", inventaire);
         const salle = new Room("Red Room", ["Redtable"]);
-        
+
         salle.removeElt("Redtable");
-        gamer2.inventory.addNewElt("Redtable");
-       
-        expect(inventaire.objects.length).toBe(2);
+        gamer2.inventory.addElt("Redtable");
+        expect(gamer2.inventory.objects.length).toBe(2);
         expect(salle.objects).toStrictEqual([]);
 
     })
 });
 
 
-// describe("evolution comportement ramassage", ()=> {
-//    it("Un objet ramassé une fois ne peut etre ramasser deux fois", () => {
-//      const salle = new Room("Red Room", ["RedChair"]);
-//      const inventaire = new Inventory(["Torch"]);
-        
-//     expect( salle.removeElt("Redtable")).;
-//      expect( inventaire.addNewElt("Redtable"));
+describe("evolution comportement ramassage", () => {
+    it("Un objet ramassé une fois ne peut etre ramasser deux fois", () => {
+        const inventaire = new Inventory(["Torch"]);
+        const gamer3 = new Gamer("Georges", "red", inventaire);
+        const salle = new Room("Red Room", ["RedChair"]);
+        salle.removeElt("RedChair");
+        gamer3.inventory.addElt("RedChair");
 
-//    })
-// });
+        expect(salle.objects).toStrictEqual([]);
+        expect(salle.removeElt("RedChair")).toBe(false);
+        expect(gamer3.inventory.addNewElt("RedChair")).toBe(false);
+
+
+    })
+});
