@@ -109,11 +109,6 @@ export class Inventory {
         this.objects = this.objects.filter(item => item != object);
     }
 
-    // essai  en attente
-    addElt(object: string) {
-        this.objects.push(object);
-    }
-    //fin essai
 
     addNewElt(object: string): boolean {
         const objetaRanger = this.objects.find(objetaRanger => objetaRanger === object);
@@ -123,6 +118,16 @@ export class Inventory {
         else {
             this.objects.push(object);
             return true;
+        }
+    }
+
+    useObject(object: string): boolean {
+        const objetaUtiliser = this.objects.find(objetaUtiliser => objetaUtiliser === object);
+        if (objetaUtiliser) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }

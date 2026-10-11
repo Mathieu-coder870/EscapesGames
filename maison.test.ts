@@ -60,7 +60,7 @@ describe("ramasser un objet dans une salle", () => {
         const salle = new Room("Red Room", ["Redtable"]);
 
         salle.removeElt("Redtable");
-        gamer2.inventory.addElt("Redtable");
+        gamer2.inventory.addNewElt("Redtable");
         expect(gamer2.inventory.objects.length).toBe(2);
         expect(salle.objects).toStrictEqual([]);
 
@@ -74,12 +74,21 @@ describe("evolution comportement ramassage", () => {
         const gamer3 = new Gamer("Georges", "red", inventaire);
         const salle = new Room("Red Room", ["RedChair"]);
         salle.removeElt("RedChair");
-        gamer3.inventory.addElt("RedChair");
+        gamer3.inventory.addNewElt("RedChair");
 
         expect(salle.objects).toStrictEqual([]);
         expect(salle.removeElt("RedChair")).toBe(false);
         expect(gamer3.inventory.addNewElt("RedChair")).toBe(false);
 
-
     })
 });
+
+describe("Possibilité d'utiliser un objet", () => {
+    it("Un joueur ne peut utiliser qu'un objet qu'il possède dans son inventaire", () => {
+        const inventaire = new Inventory(["Torch"]);
+        const gamer3 = new Gamer("Georges", "red", inventaire);
+        expect(gamer3.inventory.useObject("Torch")).toBe(true);
+        expect(gamer3.inventory.useObject("Weapon")).toBe(false);
+
+    })
+}); 
