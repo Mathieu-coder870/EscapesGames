@@ -3,12 +3,14 @@ export class Porte {
     isCleParticulier: boolean;
     isUtilisé: boolean;
     color: string;
+    enigme: Enigm;
 
-    constructor(statut: boolean, clePart: boolean, utilisée: boolean, colordoor: string) {
+    constructor(statut: boolean, clePart: boolean, utilisée: boolean, colordoor: string, engimeDoor: Enigm) {
         this.isOpen = statut;
         this.isCleParticulier = clePart;
         this.isUtilisé = utilisée;
         this.color = colordoor;
+        this.enigme = engimeDoor;
 
     }
 
@@ -57,18 +59,26 @@ export class Porte {
 
     }
 
+    setIsOpen(actionOpenOnDoor: boolean) {
+        this.isOpen = actionOpenOnDoor;
+    }
+
 }
 
 export class Gamer {
     name: string;
     key: string;
     inventory: Inventory;
+    answer: string;
+    enigme: Enigm;
 
 
-    constructor(nom: string, colorKey: string, inventaire: Inventory) {
+    constructor(nom: string, colorKey: string, inventaire: Inventory, answerEnigm: string, engimeOfaDoor: Enigm) {
         this.name = nom;
         this.key = colorKey;
         this.inventory = inventaire;
+        this.answer = answerEnigm;
+        this.enigme = engimeOfaDoor;
     }
     // ancienne version debut
     // addNewElt(object: string) {
@@ -84,6 +94,16 @@ export class Gamer {
         sac.remove(elt);
     }
     // essai
+
+    giveAnswerForEnigm(stateAnswer: boolean) {
+        if (stateAnswer) {
+            this.enigme.setStateEnigm(true);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 }
 
@@ -158,4 +178,27 @@ export class Room {
 
 
 }
+
+export class Enigm {
+    enigm: string;
+    isResolu: boolean
+
+    constructor(nameOfEnigm: string, stateEnigm: boolean) {
+        this.enigm = nameOfEnigm;
+        this.isResolu = stateEnigm;
+    }
+
+    getStateEnigm() {
+        return this.isResolu;
+    }
+
+    setStateEnigm(actualStateEnigm: boolean) {
+        if (this.isResolu) {
+            this.isResolu = true;
+        } else {
+            this.isResolu = actualStateEnigm;
+        }
+    }
+}
+
 
